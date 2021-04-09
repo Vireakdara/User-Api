@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import java.sql.Timestamp;
 
 public class BaseApiResponse<T> {
+    private boolean success;
     private String message;
     private T data;
     private HttpStatus status;
@@ -13,11 +14,20 @@ public class BaseApiResponse<T> {
     public BaseApiResponse() {
     }
 
-    public BaseApiResponse(String message, T data, HttpStatus status, Timestamp time) {
+    public BaseApiResponse(boolean success, String message, T data, HttpStatus status, Timestamp time) {
+        this.success = success;
         this.message = message;
         this.data = data;
         this.status = status;
         this.time = time;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public String getMessage() {
@@ -55,7 +65,8 @@ public class BaseApiResponse<T> {
     @Override
     public String toString() {
         return "BaseApiResponse{" +
-                "message='" + message + '\'' +
+                "success=" + success +
+                ", message='" + message + '\'' +
                 ", data=" + data +
                 ", status=" + status +
                 ", time=" + time +

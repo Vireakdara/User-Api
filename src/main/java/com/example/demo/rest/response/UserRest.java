@@ -1,15 +1,27 @@
-package com.example.demo.rest.request;
+package com.example.demo.rest.response;
 
-public class UserRequestModel {
+public class UserRest {
+
+    private String userId;
     private String username;
     private String password;
 
-    public UserRequestModel() {
+    public UserRest() {
+
     }
 
-    public UserRequestModel(String username, String password) {
+    public UserRest(String userId, String username, String password) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -30,9 +42,13 @@ public class UserRequestModel {
 
     @Override
     public String toString() {
-        return "UserRequestModel{" +
-                "username='" + username + '\'' +
+        return "UserRest{" +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
+
+
+
 }

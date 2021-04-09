@@ -1,60 +1,60 @@
 package com.example.demo.repository.Dto;
 
 public class UserDto {
-    private int     user_id;
-    private String  user_name;
-    private String  user_pwd;
-    private String  type;
+    private int id;
+    private String userId;
+    private String username;
+    private String password;
 
     public UserDto() {
     }
 
-    public UserDto(int user_id, String user_name, String user_pwd, String type) {
-        this.user_id = user_id;
-        this.user_name = user_name;
-        this.user_pwd = user_pwd;
-        this.type = type;
+    public UserDto(String userId, String username, String password) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getId() {
+        return id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getUser_pwd() {
-        return user_pwd;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser_pwd(String user_pwd) {
-        this.user_pwd = user_pwd;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getType() {
-        return type;
+    public String getPassword() {
+        return password;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "UserDto{" +
-                "user_id=" + user_id +
-                ", user_name='" + user_name + '\'' +
-                ", user_pwd='" + user_pwd + '\'' +
-                ", type='" + type + '\'' +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
+
 }

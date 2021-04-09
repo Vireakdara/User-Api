@@ -3,73 +3,62 @@ package com.example.demo.rest.restcontroller;
 import com.example.demo.repository.Dto.UserDto;
 import com.example.demo.rest.request.UserRequestModel;
 import com.example.demo.rest.response.BaseApiResponse;
+import com.example.demo.rest.response.Messages;
+import com.example.demo.rest.response.UserRest;
+import com.example.demo.rest.utils.ApiUtils;
+import com.example.demo.rest.utils.DateTimeUtils;
 import com.example.demo.service.Imp.UserServiceImp;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.jws.WebParam;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 public class UserRestController {
+
     private UserServiceImp userService;
+    private ApiUtils apiUtils;
+    private DateTimeUtils dateTimeUtils;
 
     @Autowired
     public void setUserService(UserServiceImp userService) {
         this.userService = userService;
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<BaseApiResponse<UserRequestModel>> insert(@RequestBody UserRequestModel user) {
 
-        BaseApiResponse<UserRequestModel> response = new BaseApiResponse<>();
-
-        // Validate ->
-
-        ModelMapper modelMapper = new ModelMapper();
-
-        UserDto userDto = modelMapper.map(user, UserDto.class);
-
-//        userDto.setUser_id(464);
-
-        UserDto result = userService.insert(userDto);
-
-        UserRequestModel result2 = modelMapper.map(result, UserRequestModel.class);
-
-        response.setMessage("You have add article successfully");
-        response.setData(result2);
-        response.setStatus(HttpStatus.OK);
-        response.setTime(new Timestamp(System.currentTimeMillis()));
-
-        return ResponseEntity.ok(response);
+    @Autowired
+    public void setApiUtils(ApiUtils apiUtils) {
+        this.apiUtils = apiUtils;
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<BaseApiResponse<List<UserRequestModel>>> select() {
+    @Autowired
+    public void setDateTimeUtils(DateTimeUtils dateTimeUtils) {
+        this.dateTimeUtils = dateTimeUtils;
+    }
 
-        ModelMapper mapper = new ModelMapper();
-        BaseApiResponse<List<UserRequestModel>> response = new BaseApiResponse<>();
+    @PostMapping("/users")
+    ResponseEntity<BaseApiResponse<UserRest>> insert(@RequestBody UserRequestModel user){
 
-        List<UserDto> userDtoList = userService.select();
-        List<UserRequestModel> users = new ArrayList<>();
+        BaseApiResponse<UserRest> response = new BaseApiResponse<>();
 
-        for (UserDto userDto : userDtoList){
-            users.add(mapper.map(userDto, UserRequestModel.class));
-        }
+        UserDto userDto = apiUtils.mapper().map(user, UserDto.class );
 
-        response.setMessage("You have found all users successfully");
-        response.setData(users);
+        userDto.setUserId("qwerqwer");
+
+        UserDto insertedUser = userService.insert(userDto);
+
+        UserRest userRest = apiUtils.mapper().map(insertedUser, UserRest.class);
+
+        response.setSuccess(true);
+        response.setMessage(Messages.Success.INSERT_SUCCESS.getMessage());
+        response.setData(userRest);
         response.setStatus(HttpStatus.OK);
-        response.setTime(new Timestamp(System.currentTimeMillis()));
+        response.setTime(dateTimeUtils.getCurrentTime());
 
         return ResponseEntity.ok(response);
+
     }
 }
