@@ -18,7 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/tableusers")
+        http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST,"/users")
                 .permitAll().anyRequest()
                 .authenticated().and().httpBasic();
     }

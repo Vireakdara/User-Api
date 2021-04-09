@@ -46,7 +46,7 @@ public class UserRestController {
 
         UserDto userDto = apiUtils.mapper().map(user, UserDto.class );
 
-        userDto.setUserId("qwerqwer");
+        userDto.setUserId("qwerqwerasdf");
 
         UserDto insertedUser = userService.insert(userDto);
 
